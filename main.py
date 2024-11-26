@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Depends
 from typing import Optional
 from pydantic import BaseModel
 
@@ -47,14 +47,15 @@ def get_blogs(limit:int,offset:int = 10, sort:Optional[bool] = None):
 
 # we can also use Dict and Any to avoid predefined schema
 
-class Blog(BaseModel):
-    title : str
-    price : int = 20
-    description : Optional[str] = None
+class Blog_Pyd(BaseModel):
+    id : int
+    name : str
+    price : float
+    author : Optional[str] = None
+
+    class Config:
+        orm_mode = True
 
 
-@app.post('/createblog')
-def create_blog(request:Blog):
-    if request.description:
-        return f"blog title: {request.title},price:{request.price},description:{request.description}"
-    return f"blog title: {request.title},price:{request.price}"
+
+    
