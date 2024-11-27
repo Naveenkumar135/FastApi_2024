@@ -9,5 +9,5 @@ class Blog(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(60), nullable=False, server_default=text(''))
-    price = Column(Float, nullable=False)
+    price = Column(Float, nullable=False,server_default = text('0'))
     author = Column(String(64), server_default=text(''))
