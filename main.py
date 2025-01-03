@@ -4,6 +4,10 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+from crud import crud_router
+
+app.include_router(crud_router)
+
 @app.get("/")
 def index():
     return {"result":"hello"}
@@ -47,20 +51,6 @@ def get_blogs(limit:int,offset:int = 10, sort:Optional[bool] = None):
 
 # we can also use Dict and Any to avoid predefined schema
 
-class Blog_Pyd(BaseModel):
-    id : int
-    name : str
-    price : float
-    author : Optional[str] = None
-
-    class Config:
-        orm_mode = True
-
-class Blog_up(BaseModel):
-    id : int
-    name : Optional[str]
-    price : Optional[float] = None
-    author : Optional[str]
 
 
 
